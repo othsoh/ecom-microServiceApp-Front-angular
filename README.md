@@ -70,8 +70,8 @@ Lien du ChatBot RAG : [Repo Frontend](https://github.com/othsoh/RAG-chatBot/)
 
 Le frontend, développé en Angular, offre une interface utilisateur intuitive et responsive. L'utilisation de Tailwind CSS permet de garantir une expérience utilisateur moderne.
 
-Le code source du backend peut être trouvé ici : [Repo Backend](https://github.com/othsoh/microService-app)
-Lien du ChatBot RAG : [Repo Frontend](https://github.com/othsoh/RAG-chatBot/)
+- Le code source du backend peut être trouvé ici : [Repo Backend](https://github.com/othsoh/microService-app)
+- Lien du ChatBot RAG : [Repo Frontend](https://github.com/othsoh/RAG-chatBot/)
 
 ---
 
