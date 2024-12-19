@@ -70,3 +70,7 @@ Lien du backend Spring Boot : [Repo Backend](https://github.com/othsoh/microServ
 Le frontend, développé en Angular, offre une interface utilisateur intuitive et responsive. L'utilisation de Tailwind CSS permet de garantir une expérience utilisateur moderne.
 
 Le code source du backend peut être trouvé ici : [Repo Backend](https://github.com/othsoh/microService-app)
+
+---
+
+© 2024 Projet Académique - Application E-commerce Microservices (Frontend)
