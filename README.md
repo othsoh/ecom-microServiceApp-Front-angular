@@ -27,8 +27,8 @@ Ce repo contient le code frontend de l'application e-commerce, développée en A
 
 ### Liens
 
-Lien du backend Spring Boot : [Repo Backend](https://github.com/othsoh/microService-app)
-Lien du ChatBot RAG : [Repo Frontend](https://github.com/othsoh/RAG-chatBot/)
+- Lien du backend Spring Boot : [Repo Backend](https://github.com/othsoh/microService-app)
+- Lien du ChatBot RAG : [Repo Frontend](https://github.com/othsoh/RAG-chatBot/)
 
 ---
 
