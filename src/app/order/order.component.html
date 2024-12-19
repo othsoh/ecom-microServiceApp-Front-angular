@@ -1,0 +1,129 @@
+<link rel="stylesheet" href="order.component.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+
+<div class="w-full flex justify-center pt-10">
+  <a class="w-full cursor-pointer inline-flex justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:w-auto" (click)="downloadPDF()" >Download as PDF</a>
+</div>
+
+<div class="max-w-3xl mx-auto p-6 bg-gray-800 rounded shadow-sm my-6" id="invoice">
+
+  <div class="grid grid-cols-2 items-center">
+    <div>
+      <!--  Company logo  -->
+      <img ngSrc="assets/temu-logo-black.jpg" alt="company-logo" height="736" width="736" style="height: 100px; width: 100px;" />
+    </div>
+
+    <div class="text-right">
+      <p class="text-white">
+        Temu Inc.
+      </p>
+      <p class="text-gray-200 text-sm">
+
+      </p>
+      <p class="text-gray-200 text-sm mt-1">
+        +212 6 12 34 56 78
+      </p>
+      <p class="text-gray-200 text-sm mt-1">
+        VAT: 8657671212
+      </p>
+      <p class="text-gray-200 text-sm mt-1">
+        Casablanca, Morocco
+      </p>
+    </div>
+  </div>
+
+  <!-- Client info -->
+  <div class="grid grid-cols-2 items-center mt-8">
+    <div>
+      <p class="font-bold text-white">
+        Bill to :
+      </p>
+      <p class="text-white">
+        {{ bill.customer.name }}
+        <br />
+        {{ bill.customer.phoneNumber }}
+
+        <br />
+        {{ bill.customer.address }}
+      </p>
+      <p class="text-gray-200">
+        {{ bill.customer.email }}
+      </p>
+    </div>
+
+    <div class="text-right">
+      <p class="text-white">
+        Invoice number:
+        <span class="text-gray-200">{{ bill.id }}</span>
+      </p>
+      <p class="text-white">
+        Invoice date: <span class="text-gray-200">{{formatDate(bill.billingDate)}}</span>
+
+      </p>
+    </div>
+  </div>
+
+  <!-- Invoice Items -->
+  <div class="-mx-4 mt-8 flow-root sm:mx-0" style="margin-top: 1rem;">
+    <table id="my-table" class="min-w-full">
+      <colgroup>
+        <col class="w-full sm:w-1/2">
+        <col class="sm:w-1/6">
+        <col class="sm:w-1/6">
+        <col class="sm:w-1/6">
+      </colgroup>
+      <thead class="border-b border-gray-300 text-white">
+      <tr>
+        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">Items</th>
+        <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-white sm:table-cell">Quantity</th>
+        <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-white sm:table-cell">Price</th>
+        <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-white sm:pr-0">Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="border-b border-gray-200" *ngFor="let productItem of bill.productItems">
+        <td class="max-w-0 py-5 pl-4 pr-3 text-sm sm:pl-0">
+          <div class="font-medium text-white">{{productItem.product.name}}</div>
+          <div class="mt-1 truncate text-gray-400">Description</div>
+        </td>
+        <td class="hidden px-3 py-5 text-right text-sm text-gray-200 sm:table-cell">{{productItem.quantity}}</td>
+        <td class="hidden px-3 py-5 text-right text-sm text-gray-200 sm:table-cell">{{ decimalPipe.transform(productItem.price) }} MAD</td>
+        <td class="py-5 pl-3 pr-4 text-right text-sm text-gray-200 sm:pr-0">{{decimalPipe.transform(calculateAmount(productItem.quantity,productItem.price))  }} MAD</td>
+      </tr>
+
+
+      </tbody>
+      <tfoot>
+      <tr>
+        <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-6 text-right text-sm font-normal text-gray-200 sm:table-cell sm:pl-0">Subtotal</th>
+        <th scope="row" class="pl-6 pr-3 pt-6 text-left text-sm font-normal text-gray-200 sm:hidden">Subtotal</th>
+        <td class="pl-3 pr-6 pt-6 text-right text-sm text-gray-200 sm:pr-0">{{decimalPipe.transform(calculateTotal(bill))  }} MAD</td>
+      </tr>
+      <tr>
+        <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-4 text-right text-sm font-normal text-gray-200 sm:table-cell sm:pl-0">Tax</th>
+        <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-normal text-gray-200 sm:hidden">Tax</th>
+        <td class="pl-3 pr-6 pt-4 text-right text-sm text-gray-200 sm:pr-0">10%</td>
+      </tr>
+      <tr>
+        <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-4 text-right text-sm font-normal text-gray-200 sm:table-cell sm:pl-0">Discount</th>
+        <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-normal text-gray-200 sm:hidden">Discount</th>
+        <td class="pl-3 pr-6 pt-4 text-right text-sm text-gray-200 sm:pr-0">- {{ bill.discount }}</td>
+      </tr>
+      <tr>
+        <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-4 text-right text-sm font-semibold text-white sm:table-cell sm:pl-0">Total</th>
+        <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-semibold text-white sm:hidden">Total</th>
+        <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-white sm:pr-0">{{ decimalPipe.transform( addTax(calculateTotal(bill))) }} MAD</td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!--  Footer  -->
+  <div class="border-t-2 pt-4 text-xs text-gray-200 text-center mt-16">
+    Please pay the invoice before the due date. You can pay the invoice by logging in to your account from our client portal.
+  </div>
+
+</div>
+
+
+<!-- <button type="button" id="btn" class="">Print</button> -->
