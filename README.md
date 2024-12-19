@@ -28,6 +28,7 @@ Ce repo contient le code frontend de l'application e-commerce, développée en A
 ### Liens
 
 Lien du backend Spring Boot : [Repo Backend](https://github.com/othsoh/microService-app)
+Lien du ChatBot RAG : [Repo Frontend](https://github.com/othsoh/RAG-chatBot/)
 
 ---
 
@@ -70,6 +71,7 @@ Lien du backend Spring Boot : [Repo Backend](https://github.com/othsoh/microServ
 Le frontend, développé en Angular, offre une interface utilisateur intuitive et responsive. L'utilisation de Tailwind CSS permet de garantir une expérience utilisateur moderne.
 
 Le code source du backend peut être trouvé ici : [Repo Backend](https://github.com/othsoh/microService-app)
+Lien du ChatBot RAG : [Repo Frontend](https://github.com/othsoh/RAG-chatBot/)
 
 ---
 
